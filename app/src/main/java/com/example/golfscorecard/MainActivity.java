@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, ScoreCardActivity.class);
+        Intent intent = new Intent(this, NamesActivity.class);
         EditText hole = findViewById(R.id.hole);
         EditText player = findViewById(R.id.player);
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extra = new Bundle();
         extra.putString("EXTRA_HOLE", holeString);
-        extra.putString("EXTRA_PLAYER", playerString);
+        extra.putString("NUMBER_OF_PLAYER", playerString);
         intent.putExtras(extra);
         startActivity(intent);
     }

@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GolfScoreCard">
         <activity
-            android:name=".ScoreCardActivity"
+            android:name=".GameActivity"
+            android:exported="true" />
+        <activity
+            android:name=".NamesActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
