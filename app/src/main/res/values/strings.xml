@@ -4,4 +4,8 @@
     <string name="hole">How Many Holes?</string>
     <string name="players">How Many Players?</string>
     <string name="start">Start Game</string>
+    <string name="name">Enter a Name for Players!</string>
+    <string name="add">add</string>
+    <string name="courseName">Golfcourse</string>
+    <string name="enterName">Add Players</string>
 </resources>
