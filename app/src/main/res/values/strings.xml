@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GolfScoreCard</string>
+    <string name="title">Golf ScoreCard!</string>
+    <string name="hole">How Many Holes?</string>
+    <string name="players">How Many Players?</string>
+    <string name="start">Start Game</string>
+</resources>
