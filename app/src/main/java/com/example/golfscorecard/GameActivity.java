@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.golfscorecard.exceptions.SadPlayerException;
@@ -46,6 +48,8 @@ public class GameActivity extends AppCompatActivity {
 
         TextView textView2 = findViewById(R.id.view2);
         textView2.setText(courseName);
+
+        //TableRow testRow = new TableRow();
     }
 
     private void getValuesFromBundle(){
