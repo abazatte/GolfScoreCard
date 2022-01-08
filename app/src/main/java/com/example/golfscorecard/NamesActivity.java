@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class NamesActivity extends AppCompatActivity {
 
-    Scorecard scorecard;
     Intent intent;
     Bundle extras;
     String holes;
@@ -24,6 +23,7 @@ public class NamesActivity extends AppCompatActivity {
     int numberOfPlayers;
     Button button;
     ArrayList<String> listeSpieler = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,6 @@ public class NamesActivity extends AppCompatActivity {
         number = extras.getString("NUMBER_OF_PLAYER");
         numberOfHoles = Integer.parseInt(holes);
         numberOfPlayers = Integer.parseInt(number);
-        scorecard = new Scorecard(Integer.toString(R.string.courseName),numberOfHoles,R.integer.maxSwings);
         button = findViewById(R.id.add);
         button.setOnClickListener(this::add);
     }
@@ -45,6 +44,7 @@ public class NamesActivity extends AppCompatActivity {
         listeSpieler.add(nameString);
 
         activateButton();
+        name.getText().clear();
     }
 
     protected void activateButton(){
@@ -60,8 +60,9 @@ public class NamesActivity extends AppCompatActivity {
 
     protected void gameStart(View view){
         Intent intent = new Intent(this, GameActivity.class);
-        scorecard.setCourseName("Golfplatz Brudda!");
-        intent.putExtra("stringliste", listeSpieler);
+
+        extras.putStringArrayList("stringliste", listeSpieler);
+        intent.putExtras(extras);
         startActivity(intent);
     }
 }
