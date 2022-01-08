@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.golfscorecard.exceptions.SadPlayerException;
 
+import java.util.ArrayList;
+
 public class NamesActivity extends AppCompatActivity {
 
     Scorecard scorecard;
@@ -21,6 +23,7 @@ public class NamesActivity extends AppCompatActivity {
     int numberOfHoles;
     int numberOfPlayers;
     Button button;
+    ArrayList<String> listeSpieler = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,17 +42,13 @@ public class NamesActivity extends AppCompatActivity {
     protected void add(View view){
         EditText name = findViewById(R.id.name);
         String nameString = name.getText().toString();
-        Player player = new Player(nameString,numberOfHoles,R.integer.maxSwings);
-        try {
-            scorecard.addPlayer(player);
-        } catch(SadPlayerException s){
-            Toast.makeText(this, s.getMessage(), Toast.LENGTH_SHORT);
-        }
+        listeSpieler.add(nameString);
+
         activateButton();
     }
 
     protected void activateButton(){
-        if (scorecard.getAnzahl() == numberOfPlayers){
+        if (listeSpieler.size() == numberOfPlayers){
             Button activateButton = findViewById(R.id.start1);
             activateButton.setEnabled(true);
             button.setEnabled(false);
@@ -62,7 +61,7 @@ public class NamesActivity extends AppCompatActivity {
     protected void gameStart(View view){
         Intent intent = new Intent(this, GameActivity.class);
         scorecard.setCourseName("Golfplatz Brudda!");
-        intent.putExtra("parcelboi", scorecard);
+        intent.putExtra("stringliste", listeSpieler);
         startActivity(intent);
     }
 }

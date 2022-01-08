@@ -3,8 +3,11 @@ package com.example.golfscorecard;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -14,11 +17,9 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         TextView textView = findViewById(R.id.textView3);
-        TextView anzahl = findViewById(R.id.textView4);
-
-        Scorecard scorecard = getIntent().getParcelableExtra("parcelboi");
-        String anzahl1 = Integer.toString(scorecard.getAnzahl());
-        textView.setText(scorecard.courseName);
-        anzahl.setText(anzahl1);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        ArrayList<String> liste = bundle.getStringArrayList("stringliste");
+        textView.setText(liste.toString());
     }
 }
