@@ -9,13 +9,15 @@ import android.widget.TextView;
 
 import com.example.golfscorecard.exceptions.SadPlayerException;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GameActivity extends AppCompatActivity {
     private final int maxSwings = 7;
-    private final String courseName = "Golfiplatz";
+    private final String courseNamefix = "Golfiplatz";
 
     TextView textView;
     Intent intent;
@@ -25,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<String> liste;
     String holes;
     String number;
+    String courseName;
     Scorecard scorecard;
 
     int numberOfHoles;
@@ -34,12 +37,15 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        textView = findViewById(R.id.textView3);
+        textView = findViewById(R.id.view1);
 
         getValuesFromBundle();
         createScorecard(liste);
 
         textView.setText(liste.toString());
+
+        TextView textView2 = findViewById(R.id.view2);
+        textView2.setText(courseName);
     }
 
     private void getValuesFromBundle(){
@@ -51,10 +57,11 @@ public class GameActivity extends AppCompatActivity {
         number = bundle.getString("NUMBER_OF_PLAYER");
         numberOfHoles = Integer.parseInt(holes);
         numberOfPlayers = Integer.parseInt(number);
+        courseName = bundle.getString("COURSENAME");
     }
 
     private void createScorecard(ArrayList<String> names){
-        scorecard = new Scorecard(courseName,numberOfHoles,maxSwings);
+        scorecard = new Scorecard(courseNamefix,numberOfHoles,maxSwings);
 
         for (String s:names) {
             try {

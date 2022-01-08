@@ -8,4 +8,5 @@
     <string name="add">add</string>
     <string name="courseName">Golfcourse</string>
     <string name="enterName">Add Players</string>
+    <string name="setName">What is the Name of the Course?</string>
 </resources>
