@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.golfscorecard.exceptions.SadPlayerException;
+
+import java.util.ArrayList;
 
 public class NamesActivity extends AppCompatActivity {
 
@@ -21,6 +24,8 @@ public class NamesActivity extends AppCompatActivity {
     int numberOfHoles;
     int numberOfPlayers;
     Button button;
+    Button button2;
+    boolean enable = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,35 +39,52 @@ public class NamesActivity extends AppCompatActivity {
         scorecard = new Scorecard(Integer.toString(R.string.courseName),numberOfHoles,R.integer.maxSwings);
         button = findViewById(R.id.add);
         button.setOnClickListener(this::add);
+        button2 = findViewById(R.id.courseName);
+        button2.setOnClickListener(this::setCourseName);
+    }
+
+    protected void setCourseName(View view){
+        EditText editText = findViewById(R.id.name2);
+        String courseName = editText.getText().toString();
+        button2.setEnabled(false);
+        button2.setBackgroundColor(getResources().getColor(R.color.gray));
+        scorecard.setCourseName(courseName);
+        enable = true;
     }
 
     protected void add(View view){
         EditText name = findViewById(R.id.name);
         String nameString = name.getText().toString();
-        Player player = new Player(nameString,numberOfHoles,R.integer.maxSwings);
         try {
-            scorecard.addPlayer(player);
+            scorecard.addPlayer(nameString);
         } catch(SadPlayerException s){
-            Toast.makeText(this, s.getMessage(), Toast.LENGTH_SHORT);
+            Toast.makeText(this, s.getMessage(), Toast.LENGTH_LONG);
         }
         activateButton();
+        name.getText().clear();
+        Log.i("",Integer.toString(scorecard.getAnzahl()));
     }
 
     protected void activateButton(){
         if (scorecard.getAnzahl() == numberOfPlayers){
-            Button activateButton = findViewById(R.id.start1);
-            activateButton.setEnabled(true);
             button.setEnabled(false);
             button.setBackgroundColor(getResources().getColor(R.color.gray));
-            activateButton.setBackgroundColor(getResources().getColor(R.color.purple_700));
-            activateButton.setOnClickListener(this::gameStart);
+            if (enable){
+                Button activateButton = findViewById(R.id.start1);
+                activateButton.setEnabled(true);
+                activateButton.setBackgroundColor(getResources().getColor(R.color.purple_700));
+                activateButton.setOnClickListener(this::gameStart);
+            }
         }
     }
 
     protected void gameStart(View view){
         Intent intent = new Intent(this, GameActivity.class);
-        scorecard.setCourseName("Golfplatz Brudda!");
-        intent.putExtra("parcelboi", scorecard);
+        Bundle bundle = new Bundle();
+        bundle.putInt("anzahl", numberOfHoles);
+        bundle.putInt("spieler", scorecard.getAnzahl());
+        bundle.putStringArrayList("arraylist", scorecard.getPlayerlist());
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
