@@ -46,6 +46,10 @@ public class Scorecard {
         return playerList.size();
     }
 
+
+    public List<Player> getPlayerList(){
+        return playerList;
+    }
 }
 /*
 CODE GRAVEYARD:
