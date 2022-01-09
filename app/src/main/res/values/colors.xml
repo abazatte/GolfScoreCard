@@ -8,4 +8,27 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#656565</color>
+
+    <color name="cool_purple">#FF000000</color>
+
+    <color name="resultColor">#BFBFBF</color>
+
+    <color name="gold">#DDB900</color>
+    <color name="silver">#9E9D9D</color>
+    <color name="bronce">#AA8138</color>
+
+    <color name="buttonTopColor">#1E1E1E</color>
+
+    <color name="graphBody">#51FFB57C</color>
+    <color name="staticNumbers">#FFFFFFFF</color>
+    <color name="staticNumbersBackground">#FF018786</color>
+
+    <color name="backgroundPlayerOverview">#656565</color>
+    <color name="foregroundPlayerOverview">#FF000000</color>
+
+    <color name="alternativeGreen">#46BA30</color>
+    <color name="podest">#215517</color>
+
+    <color name="graphColor">#FFB57C</color>
+    <color name="graphColorSecondary">#FF0000</color>
 </resources>

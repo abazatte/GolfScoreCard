@@ -50,6 +50,9 @@ public class GameActivity extends AppCompatActivity {
     int numberOfPlayers;
 
     GridLayout gridLayout;
+    ArrayList<EditText> player1;
+    ArrayList<EditText> player2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,7 +220,7 @@ public class GameActivity extends AppCompatActivity {
                 toAdd.setInputType(InputType.TYPE_CLASS_NUMBER);
                 toAdd.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 toAdd.setBackgroundResource(R.drawable.cell_shape);
-                String id = "1000" + Integer.toString(c) + Integer.toString(r);
+                String id = Integer.toString(c) + Integer.toString(r);
                 toAdd.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
@@ -255,7 +258,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < playerlist.size(); i++) {
             Player p = playerlist.get(i);
             for (int j = 1; j < numberOfHoles; j++) {
-                String id = "1000" + Integer.toString((i+1)) + Integer.toString(j);
+                String id = Integer.toString((i+1)) + Integer.toString(j);
                 int realID = Integer.parseInt(id);
                 int resourceId = getResources().getIdentifier(
                         id,

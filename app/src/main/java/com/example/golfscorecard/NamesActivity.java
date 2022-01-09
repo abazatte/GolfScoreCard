@@ -59,10 +59,11 @@ public class NamesActivity extends AppCompatActivity {
     }
 
     protected void gameStart(View view){
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, SpreadSheet.class);
 
-        extras.putStringArrayList("stringliste", listeSpieler);
-        intent.putExtras(extras);
+        intent.putStringArrayListExtra("PlayerNames", listeSpieler);
+        intent.putExtra("NumberOfHoles", numberOfHoles);
+        intent.putExtra("AnzahlSpieler",numberOfPlayers);
         startActivity(intent);
     }
 }
