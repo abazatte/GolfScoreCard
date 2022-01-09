@@ -42,6 +42,10 @@ public class Player {
         scores[scores.length - 1] = sum;
     }
 
+    public int getSum(){
+        return scores[scores.length - 1];
+    }
+
     /**
      * takes the real world Golf Hole (start at 1) and does -1
      * so that we can begin at the start of the array!

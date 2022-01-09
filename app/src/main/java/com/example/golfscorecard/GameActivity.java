@@ -20,6 +20,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.golfscorecard.exceptions.HoleDoesntExistException;
+import com.example.golfscorecard.exceptions.InvalidScoreException;
 import com.example.golfscorecard.exceptions.SadPlayerException;
 import com.google.android.material.chip.ChipGroup;
 
@@ -129,6 +131,8 @@ public class GameActivity extends AppCompatActivity {
                 txtView.setLayoutParams(parms);
                 txtView.setGravity(Gravity.CENTER);
 
+                txtView.setBackgroundResource(R.drawable.cell_shape);
+
                 //txtView.setText("_");
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
@@ -144,7 +148,8 @@ public class GameActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
                 txtView.setLayoutParams(parms);
                 txtView.setGravity(Gravity.CENTER);
-
+                txtView.setBackgroundResource(R.drawable.cell_shape);
+                txtView.setTextSize(20);
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
                 gridParam.height = heightOfCell;
@@ -163,12 +168,13 @@ public class GameActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
                 txtView.setLayoutParams(parms);
                 txtView.setGravity(Gravity.CENTER);
-
+                txtView.setBackgroundResource(R.drawable.cell_shape);
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
                 gridParam.height = heightOfCell;
                 gridParam.setGravity(Gravity.CENTER);
                 txtView.setText("Summe");
+                txtView.setTextSize(20);
 
                 gridLayout.addView(txtView,gridParam);
             }else if(r == numberOfRows-1){
@@ -180,6 +186,7 @@ public class GameActivity extends AppCompatActivity {
                 txtView.setLayoutParams(parms);
                 txtView.setGravity(Gravity.CENTER);
 
+                txtView.setBackgroundResource(R.drawable.cell_shape);
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
                 gridParam.height = heightOfCell;
@@ -196,21 +203,21 @@ public class GameActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
                 txtView.setLayoutParams(parms);
                 txtView.setGravity(Gravity.CENTER);
-
+                txtView.setBackgroundResource(R.drawable.cell_shape);
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
                 gridParam.height = heightOfCell;
                 gridParam.setGravity(Gravity.CENTER);
                 txtView.setText(Integer.toString(r));
-
+                txtView.setTextSize(20);
                 gridLayout.addView(txtView,gridParam);
             }else{
                 EditText toAdd = new EditText(this);
-                toAdd.setText(Integer.toString(c)+ "_" + Integer.toString(r) +"; ");
+                //toAdd.setText(Integer.toString(c)+ "_" + Integer.toString(r) +"; ");
                 toAdd.setInputType(InputType.TYPE_CLASS_NUMBER);
                 toAdd.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
-                String id = Integer.toString(c) + Integer.toString(r);
+                toAdd.setBackgroundResource(R.drawable.cell_shape);
+                String id = "1000" + Integer.toString(c) + Integer.toString(r);
                 toAdd.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridParam.width = widthOfCell;
@@ -230,7 +237,7 @@ public class GameActivity extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-
+                        updateScores();
                     }
                 });
 
@@ -244,7 +251,32 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void updateScores(){
-        scorecard.getPlayerList();
-    }
+        ArrayList<Player> playerlist = scorecard.getPlayerList();
+        for (int i = 0; i < playerlist.size(); i++) {
+            Player p = playerlist.get(i);
+            for (int j = 1; j < numberOfHoles; j++) {
+                String id = "1000" + Integer.toString((i+1)) + Integer.toString(j);
+                int realID = Integer.parseInt(id);
+                int resourceId = getResources().getIdentifier(
+                        id,
+                        "id",
+                        this.getPackageName());
+                EditText edt = findViewById(resourceId);
 
+                try{
+                    p.updateHole(j,Integer.parseInt(edt.getText().toString()));
+                } catch (HoleDoesntExistException | InvalidScoreException | NumberFormatException h){
+                    continue;
+                }
+            }
+            String id = Integer.toString((i+1)) + Integer.toString(numberOfHoles + 1);
+            int realID = Integer.parseInt(id);
+            int resourceId = getResources().getIdentifier(
+                    id,
+                    "id",
+                    this.getPackageName());
+            TextView txt = findViewById(resourceId);
+            txt.setText(p.getSum());
+        }
+    }
 }

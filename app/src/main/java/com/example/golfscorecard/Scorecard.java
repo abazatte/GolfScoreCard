@@ -14,7 +14,7 @@ public class Scorecard {
     public String courseName;
     private Integer numberOfHoles;
     private Integer maxSwings;
-    private List<Player> playerList;
+    private ArrayList<Player> playerList;
 
     //dunno how tf i would init the player List tbh lol, maybe just add em later!
 
@@ -47,7 +47,7 @@ public class Scorecard {
     }
 
 
-    public List<Player> getPlayerList(){
+    public ArrayList<Player> getPlayerList(){
         return playerList;
     }
 }
