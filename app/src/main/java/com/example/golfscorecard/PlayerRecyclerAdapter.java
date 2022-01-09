@@ -18,6 +18,8 @@ public class PlayerRecyclerAdapter {
             editText = itemView.findViewById(R.id.anzahlSchlaege);
         }
 
-        //public void bind(final )
+        public void bind(final int value){
+            
+        }
     }
 }
