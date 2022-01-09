@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TableLayout;
@@ -85,16 +87,23 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void createGridLayout(){
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        int screenWidth = size.x;
+        int screenHeight = size.y;
+
         gridLayout = findViewById(R.id.score_grid);
 
         gridLayout.removeAllViews();
 
         //have smth to the left as well
         int numberOfColumns = numberOfPlayers + 1;
+        int widthOfCell = (int)(screenWidth /numberOfColumns);
         //1 for the explain row in the first
         //1 for the ergebnis row;
 
         int numberOfRows = numberOfHoles +2;
+        int heightOfCell = (int) (screenHeight / (numberOfRows+10));
         int total = numberOfColumns * numberOfRows;
 
         gridLayout.setColumnCount(numberOfColumns);
@@ -110,6 +119,9 @@ public class GameActivity extends AppCompatActivity {
                 String id = Integer.toString(c) + Integer.toString(r);
                 txtView.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
+                gridParam.width = widthOfCell;
+                gridParam.height = heightOfCell;
+                //gridParam.setGravity(Gravity.FILL);
                 gridLayout.addView(txtView,gridParam);
 
             } else if(r == 0){
@@ -117,8 +129,9 @@ public class GameActivity extends AppCompatActivity {
                 String id = Integer.toString(c) + Integer.toString(r);
                 txtView.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
-
-
+                gridParam.width = widthOfCell;
+                gridParam.height = heightOfCell;
+//gridParam.setGravity(Gravity.FILL);
                 txtView.setText(liste.get(c-1));
 
 
@@ -130,7 +143,9 @@ public class GameActivity extends AppCompatActivity {
                 String id = Integer.toString(c) + Integer.toString(r);
                 txtView.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
-
+                gridParam.width = widthOfCell;
+                gridParam.height = heightOfCell;
+                //gridParam.setGravity(Gravity.FILL);
                 txtView.setText("Summe");
 
                 gridLayout.addView(txtView,gridParam);
@@ -139,7 +154,9 @@ public class GameActivity extends AppCompatActivity {
                 String id = Integer.toString(c) + Integer.toString(r);
                 txtView.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
-
+                gridParam.width = widthOfCell;
+                gridParam.height = heightOfCell;
+                //gridParam.setGravity(Gravity.FILL);
                 txtView.setText(Integer.toString(r));
 
                 gridLayout.addView(txtView,gridParam);
@@ -150,6 +167,9 @@ public class GameActivity extends AppCompatActivity {
                 String id = Integer.toString(c) + Integer.toString(r);
                 toAdd.setId(Integer.parseInt(id));
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
+                gridParam.width = widthOfCell;
+                gridParam.height = heightOfCell;
+                //gridParam.setGravity(Gravity.FILL);
                 gridLayout.addView(toAdd,gridParam);
             }
 
