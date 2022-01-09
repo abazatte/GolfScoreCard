@@ -90,65 +90,68 @@ public class GameActivity extends AppCompatActivity {
         gridLayout.removeAllViews();
 
         //have smth to the left as well
-        int column = numberOfPlayers + 1;
+        int numberOfColumns = numberOfPlayers + 1;
         //1 for the explain row in the first
         //1 for the ergebnis row;
-        int row = numberOfHoles +2;
-        int total = column * row;
 
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount(row);
+        int numberOfRows = numberOfHoles +2;
+        int total = numberOfColumns * numberOfRows;
+
+        gridLayout.setColumnCount(numberOfColumns);
+        gridLayout.setRowCount(numberOfRows);
 
         for(int i = 0, c = 0, r = 0; i < total; i++, r++){
-            if (r == row){
+            if (r == numberOfRows){
                 r = 0;
                 c++;
             }
-                EditText toAdd = new EditText(this);
-                toAdd.setText(Integer.toString(c)+ "_" + Integer.toString(r) +"; ");
-                toAdd.setInputType(InputType.TYPE_CLASS_NUMBER);
+            if(r == 0 && c == 0){
+                TextView txtView = new TextView(this);
+                String id = Integer.toString(c) + Integer.toString(r);
+                txtView.setId(Integer.parseInt(id));
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
+                gridLayout.addView(txtView,gridParam);
 
+            } else if(r == 0){
+                TextView txtView = new TextView(this);
+                String id = Integer.toString(c) + Integer.toString(r);
+                txtView.setId(Integer.parseInt(id));
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
+
+
+                txtView.setText(liste.get(c-1));
+
+
+
+                gridLayout.addView(txtView,gridParam);
+
+            } else if(c == 0 && r == numberOfRows-1){
+                TextView txtView = new TextView(this);
+                String id = Integer.toString(c) + Integer.toString(r);
+                txtView.setId(Integer.parseInt(id));
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
+
+                txtView.setText("Summe");
+
+                gridLayout.addView(txtView,gridParam);
+            }else if(c == 0){
+                TextView txtView = new TextView(this);
+                String id = Integer.toString(c) + Integer.toString(r);
+                txtView.setId(Integer.parseInt(id));
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
+
+                txtView.setText(Integer.toString(r));
+
+                gridLayout.addView(txtView,gridParam);
+            }else{
+                EditText toAdd = new EditText(this);
+                //toAdd.setText(Integer.toString(c)+ "_" + Integer.toString(r) +"; ");
+                toAdd.setInputType(InputType.TYPE_CLASS_NUMBER);
                 String id = Integer.toString(c) + Integer.toString(r);
                 toAdd.setId(Integer.parseInt(id));
-                //editTextlocal.setLayoutParams(new LayoutParams());
-                /*GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED,1);
-                GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED,1);
-
-                if(r == 0 && c == 0) {
-                    Log.e("", "spec");
-                    colSpan = GridLayout.spec(GridLayout.UNDEFINED, 2);
-                    rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 2);
-                }*/
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams();
                 gridLayout.addView(toAdd,gridParam);
-            /*} else{
-                EditText toAdd = new EditText(this);
-                String id = Integer.toString(c) + Integer.toString(r);
-                toAdd.setId(Integer.parseInt(id));
-                //editTextlocal.setLayoutParams(new LayoutParams());
-                GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED,1);
-                GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED,1);
-
-                if(r == 0 && c == 0) {
-                    Log.e("", "spec");
-                    colSpan = GridLayout.spec(GridLayout.UNDEFINED, 2);
-                    rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 2);
-                }
-                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan,colSpan);
-                gridLayout.addView(toAdd,gridParam);
             }
-*/
-/*
-            GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED,1);
-            GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED,1);
-
-            if(r == 0 && c == 0) {
-                Log.e("", "spec");
-                colSpan = GridLayout.spec(GridLayout.UNDEFINED, 2);
-                rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 2);
-            }
-            GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan,colSpan);
-            gridLayout.addView(toAdd,gridParam);*/
 
         }
     }
